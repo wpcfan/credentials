@@ -8,5 +8,13 @@ services:
   credentials:
     volumes:
       - .:/edx/app/credentials/credentials
-      - /edx/app/credentials/credentials/credentials/assets
-      - /edx/app/credentials/credentials/node_modules
+
+  # TODO Determine if we want to use webpack --watch or the dev server. We currently get no benefits from HMR.
+  credentials-assets:
+    command: make static.watch
+    container_name: credentials-assets
+    image: edxops/credentials:devstack-slim
+    ports:
+      - "18151:18151"
+    volumes:
+      - .:/edx/app/credentials/credentials

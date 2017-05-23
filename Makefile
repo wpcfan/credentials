@@ -77,7 +77,7 @@ html_coverage: ## Generate and view HTML coverage report
 	coverage html && open htmlcov/index.html
 
 shell: ## Run a shell on a credentials container
-	docker exec -it credentials env TERM=$(TERM) /edx/app/credentials/devstack.sh open
+	docker-compose exec credentials env TERM=$(TERM) bash
 
 tail: ## View logs from services running in detached mode
 	docker-compose logs --follow

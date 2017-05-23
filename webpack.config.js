@@ -1,12 +1,25 @@
 const BundleTracker = require('webpack-bundle-tracker');
-const path = require('path');
+// const devServerPort = 18151;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
     cache: true,
 
     context: __dirname,
+
+    // devServer: {
+    //     compress: true,
+    //     contentBase: path.resolve('./credentials/static/bundles/'),
+    //     headers: {
+    //         'Access-Control-Allow-Origin': '*'
+    //     },
+    //     host: '0.0.0.0',
+    //     hot: true,
+    //     port: devServerPort,
+    //     publicPath: '/'
+    // },
 
     entry: {
         'base.style-ltr': './credentials/static/sass/main-ltr.scss',
@@ -15,16 +28,20 @@ module.exports = {
         'openedx.certificate.style-rtl': './credentials/apps/credentials_theme_openedx/static/sass/certificate-rtl.scss',
         'sharing': './credentials/static/js/sharing.js',
         'analytics': './credentials/static/js/analytics.js'
+        // '': 'webpack-dev-server/client?http://localhost:' + devServerPort,
+        // '': 'webpack/hot/only-dev-server'
     },
 
     output: {
+        filename: '[name]-[hash].js',
         path: path.resolve('./credentials/static/bundles/'),
-        filename: '[name]-[hash].js'
+        // publicPath: 'http://localhost:' + devServerPort + '/'
     },
 
     plugins: [
         new BundleTracker({filename: './webpack-stats.json'}),
         new ExtractTextPlugin('[name]-[hash].css')
+        // new webpack.HotModuleReplacementPlugin()
     ],
 
     module: {
