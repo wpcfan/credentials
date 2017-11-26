@@ -14,11 +14,13 @@ clean: ## Remove all generated files
 	rm -rf credentials/assets/ credentials/static/bundles/ coverage htmlcov test_root/uploads
 
 production-requirements: ## Install requirements for production
-	cnpm install --production
+	npm config set registry https://registry.npm.taobao.org
+	npm install --production
 	pip install -r requirements.txt
 
 requirements: ## Install requirements for local development
-	cnpm install
+	npm config set registry https://registry.npm.taobao.org
+	npm install
 	pip install -r requirements/local.txt
 
 quality: ## Run linters
